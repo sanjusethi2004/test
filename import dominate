@@ -1,0 +1,62 @@
+import dominate
+from dominate.tags import *
+
+table_headers1 = ['CHECKLIST','STATUS','COMMENTS']
+table_headers2 = ['FLOW TYPE', 'SIERRA Ingestion Components', 'Business Line', 'Cs Division', 'STATUS', 'COMMENTS']
+
+componenets_comments = 'All components are up'
+database_comments = 'logs are good'
+portal_comments = 'Databaase available'
+OMB_comments = 'OMB connection Available'
+def create_email_template(componenets_comments, database_comments, OMB_comments, portal_comments, componenets_status='OK',database_Availability_status='OK', portal_status='OK',OMB_status='OK'):
+    doc = dominate.document(title='Example Table')
+
+    with doc.head:
+        link(rel='stylesheet', href='style.css')
+    
+    with doc:
+        tags.style("body{font-family:Helvetica}")
+        tags.style("h1{font-size:x-large}")
+        tags.style("h2{font-size:large}")
+        tags.style("table{border-collapse:collapse}")
+        tags.style("th{font-size:small;border:1px solid gray;padding:4px;background-color:#DDD}")
+        tags.style("td{font-size:small;text-align:center;border:1px solid gray;padding:4px}")  
+        h1('hello world!')
+        with table(id="first_table", border="1"):
+            with thead():
+                with tr():
+                         th('SIERRA Reporting Engine health check')
+                with tbody():
+                    with tr():
+                        for table_head in table_headers1:
+                            th(table_head)
+                     with tr():
+                         td('componenets up')
+                         td(componenets_status)
+                         td(componenets_comments)
+                     with tr():
+                         td('Database Availability')
+                         td(database_Availability_status)
+                         td(database_comments)
+                     with tr():
+                         td('Portal Availability')
+                         td(portal_status)
+                         td(portal_comments)
+                     with tr():
+                         td('OMB connectivity')
+                         td(OMB_status)
+                         td(OMB_comments)
+        with table(id="second_table", border="1"):
+            with thead():
+                with tr():
+                    th('SFTR Related feeds')
+                with tbody():
+                    with tr():
+                        for table_head in table_headers2:
+                            th(table_head)
+                    with tr():
+                        td("Trabsactions Inbound to SIERRA", rowspan="4")
+                        td("GSL", style = "font-size:small;text-align:left;padding:3px")
+                        td("Vision", style = "font-size:small;text-align:left;padding:3px")
+                        td("PSDW", style = "font-size:small;text-align:left;padding:3px")
+                        td("TAPI", style = "font-size:small;text-align:left;padding:3px")
